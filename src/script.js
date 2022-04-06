@@ -56,7 +56,7 @@ function makeComment(type,currentUser,commentObj,parent,insertWhere){
     const comment = document.createElement("div");
     type=="original" ? comment.classList.add("original") : comment.classList.add("reply");
     comment.classList.add("comment");
-    comment.id = currentid;
+    comment.id = commentObj.id;
 
     const imageContainer = document.createElement("div");
     imageContainer.classList.add("img-container");
@@ -265,7 +265,7 @@ function makeBtn(type,comment,currentUser){
 
     if(type=="edit"){
         Btn.addEventListener("click",(e) => {
-            let content = e.currentTarget.parentElement.querySelector(".content").innerText;
+            let content = e.currentTarget.parentElement.querySelector(".content").innerText.split(",")[1];
             e.currentTarget.parentElement.style.display = "none";
             const boxContainer = makeBox("reply-box",currentUser,e.currentTarget.parentElement,"afterend",content);
             const replySendBtn = boxContainer.querySelector(".replySendBtn");

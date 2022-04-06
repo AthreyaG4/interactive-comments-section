@@ -21,11 +21,15 @@ app.post("/edit",(req,res) => {
     for(let i=0;i<data.comments.length;i++){
         if(data.comments[i].id == req.body.id){
             data.comments[i] = req.body;
+            console.log("editted comment ",i);
+            console.log(req.body);
             break;
         }
         for(let j=0;j<data.comments[i].replies.length;j++){
             if(data.comments[i].replies[j].id == req.body.id){
                 data.comments[i].replies[j] = req.body;
+                console.log("editted reply ",i);
+                console.log(req.body);
                 break;
             }
         }
@@ -40,11 +44,13 @@ app.post("/delete",(req,res)=>{
     for(let i=0;i<data.comments.length;i++){
         if(data.comments[i].id == req.body.id){
             data.comments.splice(i,1);
+            console.log("deleted comment ",i);
             break;
         }
         for(let j=0;j<data.comments[i].replies.length;j++){
             if(data.comments[i].replies[j].id == req.body.id){
                 data.comments[i].replies.splice(j,1);
+                console.log("deleted reply ",i);
                 break;
             }
         }
@@ -58,11 +64,13 @@ app.post("/delete",(req,res)=>{
 app.post("/reply",(req,res)=>{
     for(let i=0;i<data.comments.length;i++){
         if(data.comments[i].user.username == req.body.replyingTo){
-            data.comments[i].replies.push(req.body);
+            data.comments[i].replies.unshift(req.body);
+            console.log("added new comment");
         }
         for(let j=0;j<data.comments[i].replies.length;j++){
             if(data.comments[i].replies[j].user.username == req.body.replyingTo){
-                data.comments[i].replies.push(req.body);
+                data.comments[i].replies.unshift(req.body);
+                console.log("added new reply");
             }
         }
     }
@@ -74,6 +82,7 @@ app.post("/reply",(req,res)=>{
 
 app.post("/send",(req,res)=>{
     data.comments.push(req.body);
+    console.log("added new comment");
     fs.writeFile(path.join(__dirname,'data.json'),JSON.stringify(data,null,2),(err)=>{
         if(err) console.log(err);
     })
