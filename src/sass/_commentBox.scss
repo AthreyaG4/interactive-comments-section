@@ -1,0 +1,51 @@
+@use "variables" as *;
+
+.box-container{
+    display:grid;
+    grid-template-columns: max-content 1fr min-content;
+    grid-template-areas : 
+            "textarea textarea textarea"
+            "imageContainer cancelButton sendButton";
+    grid-gap:1em;
+    padding:1em;
+    background-color: $Neutral-white;
+    border-radius:10px;
+    align-items: center;
+    width:100%;
+    margin-top:1em;
+
+    img{
+        grid-area:imageContainer;
+        width:40px;
+        height:40px;
+    }
+}
+
+.reply-box{
+    margin-top:0.3em;
+}
+
+@media (min-width:650px){
+    .box-container{
+        grid-template-columns:max-content 1fr max-content;
+        grid-template-areas:
+            "imageContainer textarea sendButton"
+            ".............. textarea cancelButton";
+        align-items: start;
+        padding:1.5em;
+
+        img{
+            margin-top:0.5em;
+        }
+    }
+}
+
+@media (max-width:380px){
+    .reply-box{
+        width:95% !important;
+    }
+
+    .box-container{
+        grid-gap:0.5em;
+    }
+}

@@ -1,0 +1,139 @@
+@use "variables" as *;
+
+.comment{
+    background-color: white;
+    padding:1em;
+    border-radius:10px;
+    display:grid;
+    grid-template-columns: max-content max-content max-content 1fr 1fr max-content;
+    grid-template-areas : 
+        "imageContainer name name time time time"
+        "content content content content content content"
+        "votes votes votes ..... deleteButton replyOrEditButton";
+    justify-items: center;
+    grid-column-gap:1em;
+    grid-row-gap:1em;
+    align-items: center;
+    width:100%;
+
+    .img-container{
+        grid-area : imageContainer;
+        width:35px;
+        height:35px;
+        justify-self: start;
+    }
+
+    .name{
+        grid-area : name;
+        justify-self: start;
+        font-weight:700;
+    }
+    
+    .time{
+        grid-area : time;
+        justify-self: start;
+        opacity: 0.7;
+        text-align: center;
+    }
+    
+    .content{
+        grid-area : content;
+        opacity:0.7;
+        line-height: 22px;
+        justify-self: start;
+    }
+    
+    .votes{
+        grid-area : votes;
+        justify-self: start;
+        color:$Primary-blue;
+        font-weight:700;
+        padding:0.5em;
+        width:80%;
+        background-color:$Neutral-vlight-gray;
+        border-radius:10px;
+        display:flex;
+        justify-content: space-around;
+        align-items: center;
+    
+        svg path{
+            transition: all 200ms ease;
+        }
+    
+        svg:hover path{
+            fill:$Primary-blue;
+        }
+    
+        svg:hover{
+            cursor:pointer;
+        }
+    }
+
+    .icon-btn{
+        font-weight: 700;
+        cursor: pointer;
+        justify-self: end;
+        position:relative;
+        transition:opacity 200ms ease;
+        display:flex;
+        align-items: center;
+        text-transform:capitalize;
+
+        img{
+            margin-right:0.4em;
+        }
+
+        &:hover{
+            opacity:0.5;
+        }
+    }
+    
+    .reply-button,
+    .edit-button{
+        grid-area : replyOrEditButton;
+        color:$Primary-blue;
+    }
+
+    .delete-button{
+        grid-area: deleteButton;
+        color:$Primary-red;
+    }
+}
+
+.comment:not(:first-child){
+    margin-top:1em;
+}
+
+.reply{
+    width:90%;
+}
+
+@media (min-width:650px){
+    .comment{
+        grid-template-columns: 50px max-content max-content 1fr 1fr max-content;
+        grid-template-areas:
+            "votes imageContainer name time deleteButton replyOrEditButton"
+            "votes content content content content content";
+        padding:1.5em;
+    }
+
+    .votes{
+        flex-direction: column;
+        height:100px;
+        align-self: start;
+        width:100%;
+    }
+}
+
+@media (max-width:380px){
+    .reply{
+        width:95%;
+    }
+
+    .comment{
+        grid-template-areas : 
+        "imageContainer name name time time time"
+        "content content content content content content"
+        "votes votes votes deleteButton deleteButton replyOrEditButton";
+    }
+}

@@ -1,0 +1,314 @@
+*, *::after, *::before {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+img {
+  max-height: 100%;
+}
+
+.comment {
+  background-color: white;
+  padding: 1em;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: max-content max-content max-content 1fr 1fr max-content;
+  grid-template-areas: "imageContainer name name time time time" "content content content content content content" "votes votes votes ..... deleteButton replyOrEditButton";
+  justify-items: center;
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+  align-items: center;
+  width: 100%;
+}
+.comment .img-container {
+  grid-area: imageContainer;
+  width: 35px;
+  height: 35px;
+  justify-self: start;
+}
+.comment .name {
+  grid-area: name;
+  justify-self: start;
+  font-weight: 700;
+}
+.comment .time {
+  grid-area: time;
+  justify-self: start;
+  opacity: 0.7;
+  text-align: center;
+}
+.comment .content {
+  grid-area: content;
+  opacity: 0.7;
+  line-height: 22px;
+  justify-self: start;
+}
+.comment .votes {
+  grid-area: votes;
+  justify-self: start;
+  color: #5457b6;
+  font-weight: 700;
+  padding: 0.5em;
+  width: 80%;
+  background-color: #f5f6fa;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.comment .votes svg path {
+  transition: all 200ms ease;
+}
+.comment .votes svg:hover path {
+  fill: #5457b6;
+}
+.comment .votes svg:hover {
+  cursor: pointer;
+}
+.comment .icon-btn {
+  font-weight: 700;
+  cursor: pointer;
+  justify-self: end;
+  position: relative;
+  transition: opacity 200ms ease;
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+}
+.comment .icon-btn img {
+  margin-right: 0.4em;
+}
+.comment .icon-btn:hover {
+  opacity: 0.5;
+}
+.comment .reply-button,
+.comment .edit-button {
+  grid-area: replyOrEditButton;
+  color: #5457b6;
+}
+.comment .delete-button {
+  grid-area: deleteButton;
+  color: #ed6468;
+}
+
+.comment:not(:first-child) {
+  margin-top: 1em;
+}
+
+.reply {
+  width: 90%;
+}
+
+@media (min-width: 650px) {
+  .comment {
+    grid-template-columns: 50px max-content max-content 1fr 1fr max-content;
+    grid-template-areas: "votes imageContainer name time deleteButton replyOrEditButton" "votes content content content content content";
+    padding: 1.5em;
+  }
+
+  .votes {
+    flex-direction: column;
+    height: 100px;
+    align-self: start;
+    width: 100%;
+  }
+}
+@media (max-width: 380px) {
+  .reply {
+    width: 95%;
+  }
+
+  .comment {
+    grid-template-areas: "imageContainer name name time time time" "content content content content content content" "votes votes votes deleteButton deleteButton replyOrEditButton";
+  }
+}
+.box-container {
+  display: grid;
+  grid-template-columns: max-content 1fr min-content;
+  grid-template-areas: "textarea textarea textarea" "imageContainer cancelButton sendButton";
+  grid-gap: 1em;
+  padding: 1em;
+  background-color: white;
+  border-radius: 10px;
+  align-items: center;
+  width: 100%;
+  margin-top: 1em;
+}
+.box-container img {
+  grid-area: imageContainer;
+  width: 40px;
+  height: 40px;
+}
+
+.reply-box {
+  margin-top: 0.3em;
+}
+
+@media (min-width: 650px) {
+  .box-container {
+    grid-template-columns: max-content 1fr max-content;
+    grid-template-areas: "imageContainer textarea sendButton" ".............. textarea cancelButton";
+    align-items: start;
+    padding: 1.5em;
+  }
+  .box-container img {
+    margin-top: 0.5em;
+  }
+}
+@media (max-width: 380px) {
+  .reply-box {
+    width: 95% !important;
+  }
+
+  .box-container {
+    grid-gap: 0.5em;
+  }
+}
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: black;
+  opacity: 0.4;
+  z-index: 10;
+  transition: opacity 300ms ease;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  max-width: 25rem;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 10px;
+  z-index: 100;
+  padding: 1.5em;
+  min-width: 350px;
+  transition: opacity 300ms ease;
+}
+.modal h2 {
+  margin-bottom: 0.5em;
+  color: #324152;
+  font-size: 1.2em;
+}
+.modal p {
+  margin-bottom: 0.9em;
+  color: #67727e;
+  font-size: 1em;
+}
+.modal .buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.modal button {
+  padding: 1em 2em;
+  border: none;
+  text-transform: uppercase;
+  color: white;
+  font-weight: 500;
+  border-radius: 10px;
+  font-size: 0.8em;
+}
+.modal button:hover {
+  filter: brightness(120%);
+  cursor: pointer;
+}
+.modal .yes {
+  background-color: #ed6468;
+}
+.modal .no {
+  background-color: #67727e;
+}
+
+@media (min-width: 650px) {
+  .modal button {
+    font-size: 0.9em;
+  }
+  .modal h2 {
+    font-size: 1.4em;
+  }
+  .modal p {
+    font-size: 1.1em;
+  }
+}
+@media (max-width: 380px) {
+  .modal {
+    min-width: 250px;
+  }
+}
+.invisible {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body {
+  background-color: #eaecf1;
+  padding: 2em 1em;
+  font-family: "Rubik", sans-serif;
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+  height: 100%;
+}
+
+main {
+  max-width: 40rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+textarea {
+  resize: none;
+  grid-area: textarea;
+  padding: 1em;
+  font-family: "Rubik", sans-serif;
+  font-size: 1em;
+  border-radius: 10px;
+  border: 1px solid #eaecf1;
+}
+textarea:focus {
+  outline: 1.5px solid #5457b6;
+}
+
+.submit-btn {
+  grid-area: sendButton;
+  justify-self: end;
+  border: none;
+  outline: none;
+  text-transform: uppercase;
+  background-color: #5457b6;
+  color: white;
+  font-weight: 700;
+  padding: 1em 2em;
+  border-radius: 10px;
+  transition: opacity 200ms ease;
+  width: unset;
+}
+.submit-btn:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.cancel-btn {
+  background-color: #ed6468;
+  grid-area: cancelButton;
+}
+
+@media (max-width: 380px) {
+  * {
+    font-size: 0.92em;
+  }
+
+  body {
+    padding: 2em 0.5em;
+  }
+
+  .submit-btn {
+    font-size: 0.7em;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
