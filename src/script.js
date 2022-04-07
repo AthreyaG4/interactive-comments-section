@@ -1,6 +1,7 @@
 async function getData(){
-    let response = await fetch("/data");
+    let response = await fetch("https://interactive-comments-section.glitch.me/data");
     let data = await response.json();
+    console.log(data);
     gotData(data);
 }
 
@@ -23,7 +24,7 @@ function gotData({comments,currentUser}){
     const sendButton = document.querySelector(".send");
     sendButton.addEventListener("click", (e) => {
         if(e.target.parentElement.querySelector("textarea").value.trim()){
-            fetch("/send",{
+            fetch("https://interactive-comments-section.glitch.me/send",{
                 method: "POST",
                 body:JSON.stringify({
                     id:currentid,
@@ -99,7 +100,7 @@ function makeComment(type,currentUser,commentObj,parent,insertWhere){
         for(globalComment of globalComments){
             if(globalComment.id == comment.id){
                 globalComment.score++;
-                fetch("/edit",{
+                fetch("https://interactive-comments-section.glitch.me/edit",{
                     method: "POST",
                     body:JSON.stringify(globalComment),
                     headers:{
@@ -111,7 +112,7 @@ function makeComment(type,currentUser,commentObj,parent,insertWhere){
             for(reply of globalComment.replies){
                 if(reply.id == comment.id){
                     reply.score++;
-                    fetch("/edit",{
+                    fetch("https://interactive-comments-section.glitch.me/edit",{
                         method: "POST",
                         body:JSON.stringify(globalComment),
                         headers:{
@@ -145,7 +146,7 @@ function makeComment(type,currentUser,commentObj,parent,insertWhere){
         for(globalComment of globalComments){
             if(globalComment.id == comment.id){
                 globalComment.score--;
-                fetch("/edit",{
+                fetch("https://interactive-comments-section.glitch.me/edit",{
                     method: "POST",
                     body:JSON.stringify(globalComment),
                     headers:{
@@ -157,7 +158,7 @@ function makeComment(type,currentUser,commentObj,parent,insertWhere){
             for(reply of globalComment.replies){
                 if(reply.id == comment.id){
                     reply.score--;
-                    fetch("/edit",{
+                    fetch("https://interactive-comments-section.glitch.me/edit",{
                         method: "POST",
                         body:JSON.stringify(globalComment),
                         headers:{
@@ -279,7 +280,7 @@ function makeBtn(type,comment,currentUser){
                 for(globalComment of globalComments){
                     if(globalComment.id == comment.id){
                         globalComment.content = content;
-                        fetch("/edit",{
+                        fetch("https://interactive-comments-section.glitch.me/edit",{
                             method: "POST",
                             body:JSON.stringify(globalComment),
                             headers:{
@@ -291,7 +292,7 @@ function makeBtn(type,comment,currentUser){
                     for(reply of globalComment.replies){
                         if(reply.id == comment.id){
                             reply.content = content;
-                            fetch("/edit",{
+                            fetch("https://interactive-comments-section.glitch.me/edit",{
                                 method: "POST",
                                 body:JSON.stringify(globalComment),
                                 headers:{
@@ -312,7 +313,7 @@ function makeBtn(type,comment,currentUser){
                 const replySendBtn = boxContainer.querySelector(".replySendBtn");
                 replySendBtn.addEventListener("click",(e1) => {
                     if(e1.currentTarget.parentElement.querySelector("textarea").value.trim()){
-                        fetch("/reply",{
+                        fetch("https://interactive-comments-section.glitch.me/reply",{
                             method: "POST",
                             body:JSON.stringify({
                                 id:currentid,
@@ -371,7 +372,7 @@ function makeBtn(type,comment,currentUser){
 
                 for(let i = 0 ; i< globalComments.length ; i++){
                     if(globalComments[i].id == comment.id){
-                        fetch("/delete",{
+                        fetch("https://interactive-comments-section.glitch.me/delete",{
                             method: "POST",
                             body:JSON.stringify({id:globalComments[i].id}),
                             headers:{
@@ -383,7 +384,7 @@ function makeBtn(type,comment,currentUser){
                     }
                     for(let j = 0; j < globalComments[i].replies.length; j++){
                         if(globalComments[i].replies[j].id == comment.id){
-                            fetch("/delete",{
+                            fetch("https://interactive-comments-section.glitch.me/delete",{
                                 method: "POST",
                                 body:JSON.stringify({id:globalComments[i].replies[j].id}),
                                 headers:{
