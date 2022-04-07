@@ -266,7 +266,14 @@ function makeBtn(type,comment,currentUser){
 
     if(type=="edit"){
         Btn.addEventListener("click",(e) => {
-            let content = e.currentTarget.parentElement.querySelector(".content").innerText.split(",")[1];
+            let content;
+            if(e.currentTarget.parentElement.querySelector(".content").innerText[0] == '@'){
+               content = e.currentTarget.parentElement.querySelector(".content").innerText.split(",");
+               content.splice(0,1);
+            }
+            else{
+                content = e.currentTarget.parentElement.querySelector(".content").innerText;
+            }
             e.currentTarget.parentElement.style.display = "none";
             const boxContainer = makeBox("reply-box",currentUser,e.currentTarget.parentElement,"afterend",content);
             const replySendBtn = boxContainer.querySelector(".replySendBtn");
